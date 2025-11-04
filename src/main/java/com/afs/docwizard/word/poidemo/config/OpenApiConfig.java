@@ -12,7 +12,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .info(new Info()
-                .title("Doc4xj Demo API")
+                .title("Poi Demo API")
                 .version("1.0")
                 .description("API documentation for the Doc4xj Demo application"));
     }
