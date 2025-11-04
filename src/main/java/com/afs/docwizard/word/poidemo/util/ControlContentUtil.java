@@ -4,7 +4,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.xmlbeans.XmlObject;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +12,6 @@ import java.util.List;
  */
 public class ControlContentUtil {
 
-  // WordprocessingML namespace URI
-  private static final String WORDPROCESSINGML_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
 
   /**
    * Fetch XML objects by alias from an XWPFDocument.
@@ -33,15 +30,9 @@ public class ControlContentUtil {
         """.formatted(escape(alias), escape(alias)).trim();
 
       // Execute the query
-      XmlObject[] results = document.getDocument().selectPath(xpathQuery);
-
-      // Convert the results to a list
-      List<XmlObject> resultList = new ArrayList<>();
-      for (XmlObject result : results) {
-        resultList.add(result);
-      }
-      return resultList;
-    } catch (Exception e) {
+      return List.of(document.getDocument().selectPath(xpathQuery));
+    }
+    catch (Exception e) {
       throw new RuntimeException("Error executing XPath query with alias: " + alias, e);
     }
   }
