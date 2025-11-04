@@ -95,6 +95,14 @@ public class RequirementDocManager {
     updateSimpleControl("FBI Mission", requirementsInfo.getMission());
   }
 
+  public void updatePurpose(RequirementsInfo requirementsInfo) {
+    updateSimpleControl("Purpose", requirementsInfo.getPurpose());
+  }
+
+  public void updateHistoricalContext(RequirementsInfo requirementsInfo) {
+    updateSimpleControl("Historical Context", requirementsInfo.getHistoricalContext());
+  }
+
   public Resource save() throws IOException {
     var tempFile = File.createTempFile("updated-template", ".docx");
 
@@ -119,13 +127,6 @@ public class RequirementDocManager {
       .stream()
       .filter(CTSdtBlock.class::isInstance)
       .map(CTSdtBlock.class::cast)
-      .forEach(sdt -> setBlockSdtContentText(sdt, "Thanks for the update"));
-  }
-
-  private List<String> getLines(String fullLines) {
-    return new ParagraphParser(fullLines)
-      .getParagraphs()
-      .lines()
-      .toList();
+      .forEach(sdt -> setBlockSdtContentText(sdt, lines));
   }
 }

@@ -75,6 +75,13 @@ public class ControlContentUtil {
     return s.replace("'", "&apos;");
   }
 
+  /**
+   * Sets the content text of a structured document tag (SDT) block.
+   * This method ensures the content consists of a single paragraph containing the specified text.
+   *
+   * @param sdt the CTSdtBlock object representing the structured document tag (SDT) block to update.
+   * @param text the content text to set inside the SDT block.
+   */
   public static void setBlockSdtContentText(CTSdtBlock sdt, String text) {
     CTSdtContentBlock content = sdt.isSetSdtContent() ? sdt.getSdtContent() : sdt.addNewSdtContent();
 
@@ -95,10 +102,44 @@ public class ControlContentUtil {
     t.setStringValue(text);
     // If you need to preserve leading/trailing spaces: t.setSpace(STXmlSpace.PRESERVE);
 
-    r.addNewBr();
+    // Keep only this paragraph in the content
+    content.setPArray(new CTP[]{ p });
+  }
 
-    CTText t2 = r.addNewT();
-    t2.setStringValue(text);
+  /**
+   * Sets the content text of a structured document tag (SDT) block.
+   * This method ensures the SDT block contains a single paragraph
+   * and populates it with the given lines of text, adding line breaks between them.
+   *
+   * @param sdt the CTSdtBlock object representing the structured document tag (SDT) block to update.
+   * @param lines a list of strings, each representing a line of text to be added to the SDT content.
+   */
+  public static void setBlockSdtContentText(CTSdtBlock sdt, List<String> lines) {
+    CTSdtContentBlock content = sdt.isSetSdtContent() ? sdt.getSdtContent() : sdt.addNewSdtContent();
+
+    // Ensure exactly one paragraph
+    CTP p = (content.sizeOfPArray() > 0) ? content.getPArray(0) : content.addNewP();
+
+    // Clear existing runs
+    for (int i = p.sizeOfRArray() - 1; i >= 0; i--)
+      p.removeR(i);
+
+    // Add new run + text
+    CTR r = p.addNewR();
+    if (sdt.isSetSdtPr() && sdt.getSdtPr().isSetRPr()) {
+      r.setRPr(sdt.getSdtPr().getRPr()); // keep any run defaults defined on the SDT
+    }
+
+    for(int i=0, k=1; i < lines.size(); ++i, ++k) {
+      String line = lines.get(i);
+
+      CTText t = r.addNewT();
+      t.setStringValue(line);
+
+      if (k < lines.size()) {
+        r.addNewBr();
+      }
+    }
 
     // Keep only this paragraph in the content
     content.setPArray(new CTP[]{ p });

@@ -28,8 +28,8 @@ public class DocxContentControlService {
 
     try {
       requirementDocManager.updateMission(info);
-//      requirementDocManager.updatePurpose(info);
-//      requirementDocManager.updateHistoricalContext(info);
+      requirementDocManager.updatePurpose(info);
+      requirementDocManager.updateHistoricalContext(info);
 
       resource = requirementDocManager.save();
     }
