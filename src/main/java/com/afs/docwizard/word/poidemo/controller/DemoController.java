@@ -1,6 +1,6 @@
 package com.afs.docwizard.word.poidemo.controller;
 
-import com.afs.docwizard.word.doc4xjdemo.service.DocxContentControlService;
+import com.afs.docwizard.word.poidemo.service.DocxContentControlService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

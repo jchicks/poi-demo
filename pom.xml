@@ -73,6 +73,13 @@
             <artifactId>poi-scratchpad</artifactId>
             <version>5.2.5</version> <!-- Use the same version as your other POI dependencies -->
         </dependency>
+
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>12.3</version> <!-- Use the latest version -->
+        </dependency>
+
     </dependencies>
 
     <build>
