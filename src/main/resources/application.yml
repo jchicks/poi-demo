@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: doc4xj-demo
+
+
+server:
+  port: 8989
+
+
+word:
+  template:
+    mission-key: FBI Mission
