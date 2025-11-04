@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class ControlContentUtil {
 
+  private ControlContentUtil() {}
 
   /**
    * Fetch XML objects by alias from an XWPFDocument.
@@ -89,9 +90,15 @@ public class ControlContentUtil {
     if (sdt.isSetSdtPr() && sdt.getSdtPr().isSetRPr()) {
       r.setRPr(sdt.getSdtPr().getRPr()); // keep any run defaults defined on the SDT
     }
+
     CTText t = r.addNewT();
     t.setStringValue(text);
     // If you need to preserve leading/trailing spaces: t.setSpace(STXmlSpace.PRESERVE);
+
+    r.addNewBr();
+
+    CTText t2 = r.addNewT();
+    t2.setStringValue(text);
 
     // Keep only this paragraph in the content
     content.setPArray(new CTP[]{ p });
